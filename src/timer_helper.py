@@ -6,10 +6,13 @@ class TimerHelper:
     def __init__(self):
         self.timer = None
 
-    def start_timer(self, time_seconds, callback):
+    def start_timer(self, time_seconds, callback, arguments=None):
         print('Timer started')
-        self.timer = Timer(time_seconds, callback)
-        self.timer.start()
+        try:
+            self.timer = Timer(time_seconds, callback, arguments)
+            self.timer.start()
+        except Exception as e:
+            print(e)
 
     def stop_timer(self):
         if self.timer.isAlive():
