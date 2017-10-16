@@ -7,7 +7,6 @@ class TimerHelper:
         self.timer = None
 
     def start_timer(self, time_seconds, callback, arguments=None):
-        print('Timer started')
         try:
             self.timer = Timer(time_seconds, callback, arguments)
             self.timer.start()

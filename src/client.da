@@ -21,6 +21,7 @@ class Client(process):
         self.head = self.configuration[0]
 
     def fetch_config():
+        output("getting config from olympus")
         send(('get_config', self), to=self.olympus)
         await(received(('config',self.configuration)))
 
@@ -35,16 +36,20 @@ class Client(process):
         for i in range(len(workload)):
             request = workload[i].strip()
             request_id = str(client_id) + '_' + str(i)
-            send_request_to_head(request_id, request)
+            send_request(request_id, request, 0, self.head)
+            start_timer(request_id)
+            self.pending_requests[request_id] = request
+        # wait till done not received
+        await(received(('done')))
         output('client run finished!')
 
     def on_timer_expire(request_id):
         output('timer expired for request_id:', request_id)
         self.timers.pop(request_id, None) # remove timer
-        #fetch_config()
-        print(self.configuration)
+        fetch_config()
         for replica in self.configuration:
-            send(('request', request_id, self.pending_requests[request_id], 1), to=replica)
+            request = self.pending_requests[request_id]
+            send_request(request_id, request, 1, replica)
         start_timer(request_id)
 
     def start_timer(request_id):
@@ -52,11 +57,10 @@ class Client(process):
         timer.start_timer(self.TIMER_DURATION, on_timer_expire, [request_id])
         self.timers[request_id] = timer
 
-    def send_request_to_head(request_id, request):
+    def send_request(request_id, request, is_retrasmitted, recipient):
         output("sending request with id ", request_id, " and request workload ", request)
-        self.pending_requests[request_id] = request
-        send(('request', request_id, request, 0), to=self.head)
-        start_timer(request_id)
+        send(('request', request_id, request, is_retrasmitted), to=recipient)
+
 
 def main():
     pass

@@ -40,12 +40,21 @@ class Replica(process):
         output(verify(b'132123132112322', replica_id))  # REMOVE ME VERIFY_EXAMPLE
         output(verify(sign(request), replica_id))  # REMOVE ME VERIFY_EXAMPLE
         output(crypto_hash(request))  # REMOVE ME HASH_EXAMPLE
-        send('done', to=self) # REMOVE ME
+        #send('done', to=self) # REMOVE ME
+
+    def receive(msg=('request_', request_id, request, retransmitted)):
+        output("received request with id ", request_id)
+        slot = slot + 1
+        self.state_object.evaluate_request(request)
+        output(verify(b'132123132112322', replica_id))  # REMOVE ME VERIFY_EXAMPLE
+        output(verify(sign(request), replica_id))  # REMOVE ME VERIFY_EXAMPLE
+        output(crypto_hash(request))  # REMOVE ME HASH_EXAMPLE
+        #send('done', to=self) # REMOVE ME
 
     def run():
         output("replica: run started")
-        await(received(('done')))
         await(received('request',))
+        await(received(('done')))
         output("replica: run finished")
 
 
