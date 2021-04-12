@@ -8,6 +8,10 @@ Motivation
 
 This was done as course project for the course CSE 535 Asyschronous Systems at Stony Brook University taught by Professor Scott Stoller.
 
+The system is structured in following way: A startup process (bcr.da) reads the configuration file provided as commandline argument and creates Olympus and clients as mentioned in the configuration file. The Olympus after starting created the replicas based on the value of fault tolerance. The clients get their workload from the configuration file. Clients and replicas depend upon the Olympus to create the keys for signing. The public keys of all elements are shared on request. Fault Injection: If failure and triggers are mentioned in the configuration file then the necessary failures are injected during runtime in replicas when the trigger occurs.
+
+Used DistAlgo for the creation of async clients and message passing.
+
 PLATFORM
 OS: Windows 10
 DistAlgo version: 1.0.9
