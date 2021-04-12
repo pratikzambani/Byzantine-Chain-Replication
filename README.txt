@@ -1,3 +1,13 @@
+An implementation of Byzantine Chain Replication based on-
+
+van Renesse R., Ho C., Schiper N. (2012) Byzantine Chain Replication. In: Baldoni R., Flocchini P., Binoy R. (eds) Principles of Distributed Systems. OPODIS 2012. Lecture Notes in Computer Science, vol 7702. Springer, Berlin, Heidelberg
+
+The described system requires 2t+1 replicas to tolerate t Byzantine failures.
+
+Motivation
+
+This was done as course project for the course CSE 535 Asyschronous Systems at Stony Brook University taught by Professor Scott Stoller.
+
 PLATFORM
 OS: Windows 10
 DistAlgo version: 1.0.9
@@ -27,9 +37,6 @@ pseudorandom(seed, n):
     for i in range(n):
         generate a random number from 1 to 4 and map it to (get put slice append)
         generated key and value using random to generate 4 random lowercase character
-
-BUGS AND LIMITATIONS
-Not tested with multi host setup
 
 CONTRIBUTIONS
 Keshav Gupta:
@@ -70,48 +77,3 @@ src/client.da
 src/object.py
 src/olympus.da
 src/replica.da
-
-CODE SIZE
-Phase 2
-Algorithm
-github.com/AlDanial/cloc v 1.72
--------------------------------------------------------------------------------
-Language                     files          blank        comment           code
--------------------------------------------------------------------------------
-DAL                              4            107              6            708
-Python                           1             10              2             73
--------------------------------------------------------------------------------
-SUM:                             5            117              8            781
--------------------------------------------------------------------------------
-other
-about 450
-total
-~1231
-estimate for test code-  100-150 lines
-
-Phase 3
----------
-github.com/AlDanial/cloc v 1.74  T=0.50 s (10.0 files/s, 3590.0 lines/s)
--------------------------------------------------------------------------------
-Language                     files          blank        comment           code
--------------------------------------------------------------------------------
-DAL                              4            183             13           1509
-Python                           1             12              9             69
--------------------------------------------------------------------------------
-SUM:                             5            195             22           1578
--------------------------------------------------------------------------------
-other
-about 450
-total
-~2000
-estimate for test code-  200-300 lines
-
-LANGUAGE FEATURE USAGE.
-list comprehensions- 18
-dictionary comprehensions- 0
-set comprehensions- 0
-aggregations- 0
-quantifications- 0
-
-OTHER COMMENTS
-Followed coding best practices including code reviews in the development of the code base.
